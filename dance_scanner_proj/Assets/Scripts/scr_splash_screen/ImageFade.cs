@@ -15,20 +15,17 @@ public class ImageFade : MonoBehaviour {
 
     IEnumerator fadeIn()
     {
-        float duration = 2.0f;
+        float duration = 3.0f;
         SpriteRenderer MyRenderer = spriteToFade;
-        Debug.Log("in fade out");
         float counter = 0;
         //Get current color
         Color spriteColor = MyRenderer.material.color;
 
         while (counter < duration)
         {
-            Debug.Log("doing this");
             counter += Time.deltaTime;
             //Fade from 1 to 0
             float alpha = Mathf.Lerp(0, 1, counter / duration);
-            Debug.Log(alpha);
 
             //Change alpha only
             MyRenderer.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
@@ -40,21 +37,18 @@ public class ImageFade : MonoBehaviour {
 
     IEnumerator fadeOut()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         float duration = 2.0f;
         SpriteRenderer MyRenderer = spriteToFade;
-        Debug.Log("in fade out");
         float counter = 0;
         //Get current color
         Color spriteColor = MyRenderer.material.color;
 
         while (counter < duration)
         {
-            Debug.Log("doing this");
             counter += Time.deltaTime;
             //Fade from 1 to 0
             float alpha = Mathf.Lerp(1, 0, counter / duration);
-            Debug.Log(alpha);
 
             //Change alpha only
             MyRenderer.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
@@ -62,5 +56,6 @@ public class ImageFade : MonoBehaviour {
             yield return null;
         }
 
+        spriteToFade.enabled = false;
     }
 }
