@@ -12,6 +12,7 @@ public class SplashControl : MonoBehaviour
     public SpriteRenderer dot1;
     public SpriteRenderer dot2;
     public SpriteRenderer dot3;
+    public SpriteRenderer spriteToFade;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,33 @@ public class SplashControl : MonoBehaviour
         StartCoroutine("fade1out");
         StartCoroutine("fade2out");
         StartCoroutine("fade3out");
+
+        StartCoroutine("fadebkg");
+    }
+
+    IEnumerator fadebkg()
+    {
+        Debug.Log("fading");
+        spriteToFade.enabled = false;
+        yield return new WaitForSeconds(5);
+        spriteToFade.enabled = true;
+        float duration = 1.0f;
+        SpriteRenderer MyRenderer = spriteToFade;
+        float counter = 0;
+        //Get current color
+        Color spriteColor = MyRenderer.material.color;
+
+        while (counter < duration)
+        {
+            counter += Time.deltaTime;
+            //Fade from 1 to 0
+            float alpha = Mathf.Lerp(0, 1, counter / duration);
+
+            //Change alpha only
+            MyRenderer.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
+            //Wait for a frame
+            yield return null;
+        }
     }
 
     void loadmenu()
